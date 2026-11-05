@@ -1,0 +1,118 @@
+<!doctype html>
+<!-- CarePrism privacy policy.  The same file is shown in the app (Create an account → Privacy Policy) and published at
+     https://ziyuliuuga.github.io/careprism-account/privacy.html.  Change PRIVACY_VERSION in frontend/cloud.js when the
+     wording changes, so signed-in people are asked to accept the new version. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CarePrism Privacy Policy</title>
+<style>
+  :root { --bg: #fff; --fg: #1d1d1f; --fg2: #6e6e73; --line: #e5e5ea; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #000; --fg: #f5f5f7; --fg2: #a1a1a6; --line: #2c2c2e; } }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
+  main { max-width: 680px; margin: 0 auto; padding: 32px 18px 56px; }
+  h1 { font-size: 26px; margin: 0 0 4px; } h2 { font-size: 18px; margin: 28px 0 6px; } p, li { color: var(--fg); } .meta { color: var(--fg2); font-size: 14px; }
+  ul { padding-left: 20px; } hr { border: 0; border-top: 1px solid var(--line); margin: 36px 0; }
+</style>
+</head>
+<body>
+<main>
+<h1>CarePrism Privacy Policy</h1>
+<p class="meta">Version 2026-11-05 · Test version for invited testers</p>
+
+<p>CarePrism helps people with long-term conditions and their caregivers keep track of readings, medicines, symptoms,
+appointments and medical records. This page explains what the app stores, who can see it and what you can do about it.</p>
+
+<h2>What we store</h2>
+<ul>
+  <li><b>Your account:</b> your e-mail address and a password (stored only as a secure hash by our sign-in provider).</li>
+  <li><b>What you enter:</b> profiles of the people you look after, conditions, readings (for example blood pressure,
+    glucose, weight), medicines and doses taken, diary entries, appointments, reminders and medical records you add.</li>
+  <li><b>Apple Health (iPhone, only if you turn it on):</b> the readings you allow, such as heart rate, blood pressure,
+    blood oxygen, sleep and steps. We only read; we never write to Apple Health.</li>
+</ul>
+
+<h2>How it is used</h2>
+<ul>
+  <li>To show your records, charts, reminders and alerts in the app.</li>
+  <li><b>The assistant (AI):</b> when you ask a question or use a feature that reads a photo or document, the relevant
+    information is sent to Anthropic's Claude service to produce the answer. Under Settings → Assistant privacy you choose
+    what is held back. In photos and PDF pages the items you list (names, address, phone numbers, ID numbers and anything
+    you add) are covered <b>on your phone</b> before anything is sent, and you see the covered picture first.</li>
+  <li>We do not sell your data, do not use it for advertising, and do not use Apple Health data for any purpose other
+    than showing it to you and the people you share with.</li>
+</ul>
+
+<h2>Who can see it</h2>
+<ul>
+  <li>You, and the people in a person's care circle that you (or they) add. Access is enforced in the database: one
+    account cannot read another person's records unless it has been linked to them.</li>
+  <li>The service providers that run the app on our behalf: Supabase (database and sign-in, servers in the United States)
+    and Anthropic (the assistant, only for the requests you make).</li>
+</ul>
+
+<h2>Keeping it safe</h2>
+<p>Data is encrypted in transit (HTTPS). Each request is checked against your sign-in. No system is perfectly secure;
+please use a strong password and do not share your account.</p>
+
+<h2>Your choices</h2>
+<ul>
+  <li>Edit or delete readings, entries and records in the app at any time.</li>
+  <li>Export a person's complete file (Settings → Patient files → Export).</li>
+  <li>Turn off Apple Health access in the iPhone Settings app (Health → Data Access &amp; Devices → CarePrism).</li>
+  <li>To delete your account and all records you own, contact the person who invited you to test CarePrism.</li>
+</ul>
+
+<h2>Not for emergencies</h2>
+<p>CarePrism is not a medical device and does not give a diagnosis. In an emergency, call your local emergency number.</p>
+
+<h2>Changes</h2>
+<p>If this policy changes, the app asks you to read and accept the new version.</p>
+
+<hr>
+
+<h1>CarePrism 隐私政策</h1>
+<p class="meta">版本 2026-11-05 · 受邀测试人员的测试版</p>
+
+<p>CarePrism 帮助慢性病患者和照护者记录读数、用药、症状、预约和病历。本页说明 app 保存哪些信息、谁能看到，以及你可以做什么。</p>
+
+<h2>我们保存什么</h2>
+<ul>
+  <li><b>账号：</b>邮箱和密码（登录服务只以安全哈希形式保存密码）。</li>
+  <li><b>你录入的内容：</b>你照护的人的资料、病情、读数（如血压、血糖、体重）、药物和服药记录、日记、预约、提醒和你添加的病历。</li>
+  <li><b>Apple 健康（仅 iPhone，且仅在你打开时）：</b>你允许读取的数据，如心率、血压、血氧、睡眠和步数。我们只读取，从不写入 Apple 健康。</li>
+</ul>
+
+<h2>如何使用</h2>
+<ul>
+  <li>在 app 里显示你的记录、图表、提醒和警报。</li>
+  <li><b>AI 助手：</b>当你提问、或使用读取照片和文件的功能时，相关信息会发送给 Anthropic 的 Claude 服务来生成回答。你可以在 设置 → AI 隐私 中选择哪些内容不发送。照片和 PDF 中你列出的内容（姓名、地址、电话、编号及你自己添加的）会<b>先在你的手机上</b>遮盖，你确认遮盖后的图片后才会发送。</li>
+  <li>我们不出售你的数据，不用于广告，Apple 健康数据只用于显示给你和你共享的人。</li>
+</ul>
+
+<h2>谁能看到</h2>
+<ul>
+  <li>你本人，以及你（或对方）添加到某人照护圈里的人。访问权限由数据库强制执行：一个账号无法读取未与其关联的人的记录。</li>
+  <li>代我们运行 app 的服务商：Supabase（数据库和登录，服务器位于美国）和 Anthropic（AI 助手，仅处理你发起的请求）。</li>
+</ul>
+
+<h2>安全</h2>
+<p>数据在传输中加密（HTTPS），每个请求都会校验你的登录。没有系统是绝对安全的，请使用强密码，不要共享账号。</p>
+
+<h2>你的选择</h2>
+<ul>
+  <li>随时在 app 中修改或删除读数、记录和病历。</li>
+  <li>导出某人的完整档案（设置 → 病人档案 → 导出）。</li>
+  <li>在 iPhone 设置中关闭 Apple 健康访问（健康 → 数据访问与设备 → CarePrism）。</li>
+  <li>如需删除账号及你拥有的全部记录，请联系邀请你测试 CarePrism 的人。</li>
+</ul>
+
+<h2>不用于紧急情况</h2>
+<p>CarePrism 不是医疗器械，不提供诊断。紧急情况请拨打当地急救电话。</p>
+
+<h2>变更</h2>
+<p>如果本政策有变化，app 会请你阅读并同意新版本。</p>
+</main>
+</body>
+</html>

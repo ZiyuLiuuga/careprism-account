@@ -1,24 +1,102 @@
 <!doctype html>
-<html lang="zh">
+<!-- Landing page for links in CarePrism's account e-mails (Supabase Auth "Site URL").
+     Confirm sign-up → says so; reset password → lets the person choose a new one; expired link → explains.
+     The Supabase URL and publishable key below are public (they are in the app too). -->
+<html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CarePrism</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CarePrism account</title>
 <style>
-  body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #fff; color: #1d1d1f;
-         font: 17px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; text-align: center; }
-  @media (prefers-color-scheme: dark) { body { background: #000; color: #f5f5f7; } }
-  .ok { width: 64px; height: 64px; margin: 0 auto 20px; border-radius: 50%; background: #00c805; color: #fff; font-size: 34px; line-height: 64px; }
-  h1 { font-size: 26px; margin: 0 0 8px; }
-  p { color: #8e8e93; margin: 4px 16px; }
+  :root { --bg: #ffffff; --fg: #1d1d1f; --fg2: #6e6e73; --line: #e5e5ea; --green: #00c805; --red: #d70015; --soft: #f5f5f7; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #000000; --fg: #f5f5f7; --fg2: #a1a1a6; --line: #2c2c2e; --red: #ff453a; --soft: #1c1c1e; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, "PingFang SC", "Microsoft YaHei", sans-serif; }
+  main { max-width: 440px; margin: 0 auto; padding: max(56px, env(safe-area-inset-top)) 16px 48px; }
+  .brand { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 17px; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--green); }
+  h1 { font-size: 28px; letter-spacing: -0.5px; line-height: 1.2; margin: 28px 0 8px; }
+  p { color: var(--fg2); margin: 0 0 12px; }
+  .zh { margin-top: 4px; }
+  .mark { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; font-size: 28px; color: #fff; background: var(--green); margin-top: 28px; }
+  .mark.bad { background: var(--red); }
+  input { width: 100%; font: inherit; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg); color: var(--fg); margin-top: 10px; }
+  button { width: 100%; font: inherit; font-weight: 600; padding: 13px; border: 0; border-radius: 24px; background: var(--green); color: #fff; margin-top: 14px; cursor: pointer; }
+  button:disabled { opacity: .5; }
+  .note { font-size: 14px; min-height: 22px; margin-top: 10px; }
+  .note.bad { color: var(--red); }
+  .box { background: var(--soft); border-radius: 14px; padding: 14px 16px; margin-top: 20px; font-size: 14px; color: var(--fg2); }
+  [hidden] { display: none !important; }
 </style>
 </head>
 <body>
-  <div>
-    <div class="ok">✓</div>
-    <h1>邮箱已确认 · Email confirmed</h1>
-    <p>请回到 CarePrism app 登录。</p>
-    <p>Go back to the CarePrism app and sign in.</p>
-  </div>
+<main>
+  <div class="brand"><span class="dot"></span>CarePrism</div>
+
+  <section id="done">
+    <div class="mark">✓</div>
+    <h1>Your e-mail is confirmed</h1>
+    <p class="zh">邮箱已确认</p>
+    <p>Go back to the CarePrism app and sign in with your e-mail and password.</p>
+    <p class="zh">请回到 CarePrism app，用邮箱和密码登录。</p>
+  </section>
+
+  <section id="reset" hidden>
+    <h1>Choose a new password</h1>
+    <p class="zh">设置新密码</p>
+    <input id="pw" type="password" autocomplete="new-password" placeholder="New password, 8 characters or more · 新密码（至少 8 位）">
+    <input id="pw2" type="password" autocomplete="new-password" placeholder="Type it again · 再输入一次">
+    <button id="save">Save · 保存</button>
+    <div id="note" class="note"></div>
+  </section>
+
+  <section id="saved" hidden>
+    <div class="mark">✓</div>
+    <h1>Password changed</h1>
+    <p class="zh">密码已修改</p>
+    <p>Go back to the CarePrism app and sign in with the new password.</p>
+    <p class="zh">请回到 CarePrism app，用新密码登录。</p>
+  </section>
+
+  <section id="failed" hidden>
+    <div class="mark bad">!</div>
+    <h1>This link no longer works</h1>
+    <p class="zh">这个链接已失效</p>
+    <p id="why"></p>
+    <p>Links in these e-mails can be used once and expire after a while. In the app, sign in, or tap “Forgot password?” to get a new link.</p>
+    <p class="zh">邮件里的链接只能用一次，并且会过期。请回到 app 登录，或点“忘记密码？”重新获取链接。</p>
+  </section>
+
+  <div class="box">You can close this page. · 可以关闭此页面。 · <a href="privacy.html">Privacy Policy · 隐私政策</a></div>
+</main>
+<script>
+  const SUPABASE = { url: 'https://nqcpjixwgepjfxqspsvg.supabase.co', key: 'sb_publishable_qX7lYiGmVwny7vS7cu08tA_6I9kHnXA' };
+  const show = id => document.querySelectorAll('main > section').forEach(s => { s.hidden = s.id !== id; });
+  // Supabase puts the outcome in the address: #access_token=…&type=signup|recovery, or #error=…&error_description=…
+  const q = new URLSearchParams(location.hash.slice(1) + '&' + location.search.slice(1));
+  history.replaceState(null, '', location.pathname);          // keep the token out of the address bar and history
+  if (q.get('error') || q.get('error_code')) {
+    document.getElementById('why').textContent = (q.get('error_description') || q.get('error') || '').replace(/\+/g, ' ');
+    show('failed');
+  } else if (q.get('type') === 'recovery' && q.get('access_token')) {
+    const token = q.get('access_token'); show('reset');
+    const note = document.getElementById('note');
+    document.getElementById('save').onclick = async e => {
+      const a = document.getElementById('pw').value, b = document.getElementById('pw2').value;
+      note.className = 'note bad';
+      if (a.length < 8) { note.textContent = 'Use at least 8 characters. · 密码至少需要 8 位。'; return; }
+      if (a !== b) { note.textContent = 'The two passwords differ. · 两次输入的密码不一致。'; return; }
+      e.target.disabled = true; note.className = 'note'; note.textContent = '…';
+      try {
+        const r = await fetch(SUPABASE.url + '/auth/v1/user', { method: 'PUT', headers: { apikey: SUPABASE.key, Authorization: 'Bearer ' + token, 'Content-Type': 'application/json' }, body: JSON.stringify({ password: a }) });
+        const d = await r.json().catch(() => ({}));
+        if (!r.ok) throw new Error(d.msg || d.message || d.error_description || ('HTTP ' + r.status));
+        show('saved');
+      } catch (err) { note.className = 'note bad'; note.textContent = err.message; e.target.disabled = false; }
+    };
+  } else {
+    show('done');
+  }
+</script>
 </body>
 </html>
